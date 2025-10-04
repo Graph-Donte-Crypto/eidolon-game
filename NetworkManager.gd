@@ -37,10 +37,12 @@ func _on_peer_connected(id: int) -> void:
 func _on_peer_disconnected(id: int) -> void:
 	print("Peer disconnected: ", id)
 
-@rpc("any_peer")
-func spawn_player(id: int) -> void:
-	var player_scene := preload("res://Player/Player.tscn")
-	var player = player_scene.instantiate()
-	player.name = "Player_%d" % id
-	get_tree().current_scene.add_child(player)
-	player.setup(id)
+#
+#@rpc("any_peer")
+#func spawn_player(id: int) -> void:
+#	var player_scene := preload("res://Player/Player.tscn")
+#	var player = player_scene.instantiate()
+#	player.name = "Player_%d" % id
+#	get_tree().current_scene.add_child(player)
+#	player.setup(id)
+#
