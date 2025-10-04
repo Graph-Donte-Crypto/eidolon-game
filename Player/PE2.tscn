@@ -1,0 +1,31 @@
+[gd_scene load_steps=5 format=3 uid="uid://bgqcmaqyeh1g"]
+
+[ext_resource type="Script" uid="uid://xk7uklbvtr7k" path="res://Player/player_input.gd" id="1_7b55a"]
+[ext_resource type="Script" uid="uid://b4mfm6r8mjgsh" path="res://Player/pe_2.gd" id="1_c4g62"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_c4g62"]
+properties/0/path = NodePath(".:player")
+properties/0/spawn = true
+properties/0/replication_mode = 0
+properties/1/path = NodePath(".:position")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_majp7"]
+properties/0/path = NodePath("PlayerInput:direction")
+properties/0/spawn = false
+properties/0/replication_mode = 1
+
+[node name="Pe2" type="CharacterBody2D"]
+script = ExtResource("1_c4g62")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+
+[node name="ServerSync" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_c4g62")
+
+[node name="PlayerInput" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_majp7")
+script = ExtResource("1_7b55a")
+
+[node name="Camera2D" type="Camera2D" parent="."]
