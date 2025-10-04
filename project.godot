@@ -11,6 +11,6 @@ config_version=5
 [application]
 
 config/name="EidelonGame"
-run/main_scene="uid://bm6yq21omyumv"
+run/main_scene="uid://37rtnvgxsr2u"
 config/features=PackedStringArray("4.5", "Forward Plus")
 config/icon="res://icon.svg"
