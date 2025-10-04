@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://c327xgppk4ug1"]
+
+[ext_resource type="Script" uid="uid://bk4p7uxv0kh2j" path="res://Player/Example/pe_1.gd" id="1_xf310"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_xf310"]
+
+[node name="Pe1" type="CharacterBody2D"]
+motion_mode = 1
+script = ExtResource("1_xf310")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_xf310")
+
+[node name="Camera2D" type="Camera2D" parent="."]
