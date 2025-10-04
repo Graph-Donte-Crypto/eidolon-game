@@ -1,11 +1,10 @@
 [gd_scene load_steps=3 format=3 uid="uid://i5xra3kutnqf"]
 
-[ext_resource type="PackedScene" uid="uid://c327xgppk4ug1" path="res://Player/player.tscn" id="1_2llne"]
+[ext_resource type="Script" uid="uid://5nthwqlyjath" path="res://Scenes/level_1.gd" id="1_joc8x"]
 [ext_resource type="Texture2D" uid="uid://cgp6068dp4pcq" path="res://icon.svg" id="2_q12u6"]
 
 [node name="Level1" type="Node"]
-
-[node name="Pe1" parent="." instance=ExtResource("1_2llne")]
+script = ExtResource("1_joc8x")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(115, 223)
@@ -14,3 +13,10 @@ texture = ExtResource("2_q12u6")
 [node name="Sprite2D2" type="Sprite2D" parent="."]
 position = Vector2(421, 124)
 texture = ExtResource("2_q12u6")
+
+[node name="Players" type="Node" parent="."]
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("uid://bgqcmaqyeh1g")
+spawn_path = NodePath("../Players")
+spawn_limit = 4
