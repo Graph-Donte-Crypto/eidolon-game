@@ -11,9 +11,9 @@ const SPEED = 300.0
 
 # Player synchronized input.
 @onready var input = $PlayerInput
+@onready var animation = $AnimatedSprite2D
 
-func _draw() -> void:
-	draw_circle(Vector2.ZERO, 10, Color.RED)
+var right = true
 
 func _ready():
 	# Set the camera as current if we are this player.
@@ -33,5 +33,21 @@ func _physics_process(delta):
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 		velocity.y = move_toward(velocity.y, 0, SPEED)
+
+	if (velocity == Vector2.ZERO):
+		if right:
+			animation.play("idle_right")
+		else:
+			animation.play("idle_left")
+	else:
+		if velocity.x > 0:
+			right = true
+		elif velocity.x < 0:
+			right = false
+			
+		if right:
+			animation.play("walk_right")
+		else:
+			animation.play("walk_left")
 
 	move_and_slide()
