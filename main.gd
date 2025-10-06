@@ -30,7 +30,7 @@ func _on_host_pressed():
 
 func _on_connect_pressed():
 	# Start as client.
-	var txt : String = $UI/Net/Options/Remote.text
+	var txt : String = $UI/MenuPlay/MenuConnect/Options/Remote.text
 	if txt == "":
 		OS.alert("Need a remote to connect to.")
 		return
@@ -65,3 +65,17 @@ func _input(event):
 		return
 	if event.is_action("ui_home") and Input.is_action_just_pressed("ui_home"):
 		change_level(load("res://Scenes/Level1.tscn")) #call_deferred
+
+
+func _on_button_play_pressed() -> void:
+	$UI/MenuMain.hide()
+	$UI/MenuPlay.show()
+
+
+func _on_button_exit_pressed() -> void:
+	get_tree().quit()
+
+
+func _on_button_back_pressed() -> void:
+	$UI/MenuPlay.hide()
+	$UI/MenuMain.show()

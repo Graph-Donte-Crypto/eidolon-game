@@ -2,39 +2,129 @@
 
 [ext_resource type="Script" uid="uid://c4ri72le2gx54" path="res://main.gd" id="1_h2yge"]
 
-[node name="Multiplayer" type="Node"]
+[node name="MyRoot" type="Node"]
 script = ExtResource("1_h2yge")
 
 [node name="UI" type="Control" parent="."]
 layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 6
+size_flags_vertical = 6
 
-[node name="Net" type="VBoxContainer" parent="UI"]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+[node name="MenuPlay" type="VBoxContainer" parent="UI"]
+visible = false
+layout_mode = 1
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -77.5
+offset_right = 77.5
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="Options" type="HBoxContainer" parent="UI/Net"]
+[node name="Host" type="Button" parent="UI/MenuPlay"]
+layout_mode = 2
+size_flags_vertical = 6
+text = "Host Server"
+
+[node name="MenuConnect" type="VBoxContainer" parent="UI/MenuPlay"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="UI/Net/Options"]
+[node name="Options" type="HBoxContainer" parent="UI/MenuPlay/MenuConnect"]
 layout_mode = 2
-text = "Direct:"
+size_flags_vertical = 6
 
-[node name="Host" type="Button" parent="UI/Net/Options"]
+[node name="Label" type="Label" parent="UI/MenuPlay/MenuConnect/Options"]
 layout_mode = 2
-text = "Host"
+text = "Server:"
 
-[node name="Connect" type="Button" parent="UI/Net/Options"]
-layout_mode = 2
-text = "Connect"
-
-[node name="Remote" type="LineEdit" parent="UI/Net/Options"]
+[node name="Remote" type="LineEdit" parent="UI/MenuPlay/MenuConnect/Options"]
+custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 text = "127.0.0.1"
 placeholder_text = "127.0.0.1"
+
+[node name="Connect" type="Button" parent="UI/MenuPlay/MenuConnect"]
+layout_mode = 2
+size_flags_vertical = 2
+text = "Connect"
+
+[node name="ButtonBack" type="Button" parent="UI/MenuPlay"]
+layout_mode = 2
+size_flags_vertical = 6
+text = "Back"
+
+[node name="MenuMain" type="VBoxContainer" parent="UI"]
+layout_mode = 1
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -52.0
+offset_right = 52.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ButtonPlay" type="Button" parent="UI/MenuMain"]
+layout_mode = 2
+size_flags_vertical = 6
+text = "Play"
+
+[node name="ButtonSettings" type="Button" parent="UI/MenuMain"]
+layout_mode = 2
+size_flags_vertical = 6
+text = "Settings"
+
+[node name="ButtonExit" type="Button" parent="UI/MenuMain"]
+layout_mode = 2
+size_flags_vertical = 6
+text = "Exit"
+
+[node name="MenuGame" type="VBoxContainer" parent="UI"]
+visible = false
+layout_mode = 1
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MenuConnect" type="VBoxContainer" parent="UI/MenuGame"]
+layout_mode = 2
+size_flags_vertical = 6
+
+[node name="Options" type="HBoxContainer" parent="UI/MenuGame/MenuConnect"]
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="Label" type="Label" parent="UI/MenuGame/MenuConnect/Options"]
+layout_mode = 2
+text = "Server:"
+
+[node name="LineEdit" type="LineEdit" parent="UI/MenuGame/MenuConnect/Options"]
+layout_mode = 2
+placeholder_text = "Ip Address"
+
+[node name="ButtonDisconnect" type="Button" parent="UI/MenuGame/MenuConnect"]
+layout_mode = 2
+size_flags_vertical = 4
+text = "Dissconect"
+
+[node name="ButtonClose" type="Button" parent="UI/MenuGame"]
+layout_mode = 2
+size_flags_vertical = 6
+text = "Close"
+
+[node name="ButtonExit" type="Button" parent="UI/MenuGame"]
+layout_mode = 2
+size_flags_vertical = 6
+text = "Exit"
 
 [node name="Level" type="Node" parent="."]
 
@@ -43,5 +133,9 @@ _spawnable_scenes = PackedStringArray("uid://i5xra3kutnqf")
 spawn_path = NodePath("../Level")
 spawn_limit = 1
 
-[connection signal="pressed" from="UI/Net/Options/Host" to="." method="_on_host_pressed"]
-[connection signal="pressed" from="UI/Net/Options/Connect" to="." method="_on_connect_pressed"]
+[connection signal="pressed" from="UI/MenuPlay/Host" to="." method="_on_host_pressed"]
+[connection signal="pressed" from="UI/MenuPlay/MenuConnect/Connect" to="." method="_on_connect_pressed"]
+[connection signal="pressed" from="UI/MenuPlay/ButtonBack" to="." method="_on_button_back_pressed"]
+[connection signal="pressed" from="UI/MenuMain/ButtonPlay" to="." method="_on_button_play_pressed"]
+[connection signal="pressed" from="UI/MenuMain/ButtonExit" to="." method="_on_button_exit_pressed"]
+[connection signal="pressed" from="UI/MenuGame/ButtonExit" to="." method="_on_button_exit_pressed"]
