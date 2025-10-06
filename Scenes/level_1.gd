@@ -87,4 +87,4 @@ func spawn_enemy_near_player():
 
 	# 4. Use the MultiplayerSpawner to spawn the enemy for all clients
 	# Assuming $EnemySpawner is your MultiplayerSpawner
-	$Enemies.add_child(enemy)
+	$Enemies.add_child(enemy, true)

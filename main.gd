@@ -45,7 +45,7 @@ func _on_connect_pressed():
 
 func start_game():
 	# Hide the UI and unpause to start the game.
-	$UI.hide()
+	$UI/MenuPlay.hide()
 	if multiplayer.is_server():
 		change_level(load("res://Scenes/Level1.tscn")) #call_deferred
 	
@@ -61,6 +61,15 @@ func change_level(scene: PackedScene):
 
 # The server can restart the level by pressing Home.
 func _input(event):
+	"""
+	if event.is_action("ui_cancel") and Input.is_action_just_pressed("ui_cancel"):
+		var mig = $UI/MenuInGame
+		if not mig.visible:
+			mig.show()
+		else:
+			mig.hide()
+	"""
+	
 	if not multiplayer.is_server():
 		return
 	if event.is_action("ui_home") and Input.is_action_just_pressed("ui_home"):

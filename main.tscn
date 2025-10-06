@@ -85,46 +85,77 @@ layout_mode = 2
 size_flags_vertical = 6
 text = "Exit"
 
-[node name="MenuGame" type="VBoxContainer" parent="UI"]
+[node name="MenuInGame" type="HBoxContainer" parent="UI"]
 visible = false
 layout_mode = 1
-anchors_preset = 13
-anchor_left = 0.5
-anchor_right = 0.5
+anchors_preset = 15
+anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="MenuConnect" type="VBoxContainer" parent="UI/MenuGame"]
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/MenuInGame"]
+layout_mode = 2
+size_flags_horizontal = 10
+
+[node name="BoxContainer" type="CenterContainer" parent="UI/MenuInGame/VBoxContainer"]
+layout_mode = 2
+
+[node name="MenuClientInfo" type="VBoxContainer" parent="UI/MenuInGame/VBoxContainer/BoxContainer"]
+custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
 size_flags_vertical = 6
 
-[node name="Options" type="HBoxContainer" parent="UI/MenuGame/MenuConnect"]
+[node name="Options" type="HBoxContainer" parent="UI/MenuInGame/VBoxContainer/BoxContainer/MenuClientInfo"]
 layout_mode = 2
 size_flags_vertical = 4
 
-[node name="Label" type="Label" parent="UI/MenuGame/MenuConnect/Options"]
+[node name="Label" type="Label" parent="UI/MenuInGame/VBoxContainer/BoxContainer/MenuClientInfo/Options"]
 layout_mode = 2
 text = "Server:"
 
-[node name="LineEdit" type="LineEdit" parent="UI/MenuGame/MenuConnect/Options"]
+[node name="LineEdit" type="LineEdit" parent="UI/MenuInGame/VBoxContainer/BoxContainer/MenuClientInfo/Options"]
 layout_mode = 2
 placeholder_text = "Ip Address"
 
-[node name="ButtonDisconnect" type="Button" parent="UI/MenuGame/MenuConnect"]
+[node name="ButtonDisconnect" type="Button" parent="UI/MenuInGame/VBoxContainer/BoxContainer/MenuClientInfo"]
 layout_mode = 2
 size_flags_vertical = 4
 text = "Dissconect"
 
-[node name="ButtonClose" type="Button" parent="UI/MenuGame"]
+[node name="MenuHostInfo" type="VBoxContainer" parent="UI/MenuInGame/VBoxContainer/BoxContainer"]
+custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
-size_flags_vertical = 6
-text = "Close"
 
-[node name="ButtonExit" type="Button" parent="UI/MenuGame"]
+[node name="Label" type="Label" parent="UI/MenuInGame/VBoxContainer/BoxContainer/MenuHostInfo"]
+layout_mode = 2
+text = "Role: Host"
+horizontal_alignment = 1
+
+[node name="ButtonStopServer" type="Button" parent="UI/MenuInGame/VBoxContainer/BoxContainer/MenuHostInfo"]
+layout_mode = 2
+text = "Stop Server"
+
+[node name="ButtonClose" type="Button" parent="UI/MenuInGame/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 6
-text = "Exit"
+text = "Close Menu"
+
+[node name="ButtonExit" type="Button" parent="UI/MenuInGame/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 6
+text = "Exit Game"
+
+[node name="PlayerList" type="VBoxContainer" parent="UI/MenuInGame"]
+layout_mode = 2
+size_flags_horizontal = 6
+
+[node name="Label" type="Label" parent="UI/MenuInGame/PlayerList"]
+layout_mode = 2
+text = "Player List:"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/MenuInGame/PlayerList"]
+layout_mode = 2
 
 [node name="Level" type="Node" parent="."]
 
@@ -138,4 +169,4 @@ spawn_limit = 1
 [connection signal="pressed" from="UI/MenuPlay/ButtonBack" to="." method="_on_button_back_pressed"]
 [connection signal="pressed" from="UI/MenuMain/ButtonPlay" to="." method="_on_button_play_pressed"]
 [connection signal="pressed" from="UI/MenuMain/ButtonExit" to="." method="_on_button_exit_pressed"]
-[connection signal="pressed" from="UI/MenuGame/ButtonExit" to="." method="_on_button_exit_pressed"]
+[connection signal="pressed" from="UI/MenuInGame/VBoxContainer/ButtonExit" to="." method="_on_button_exit_pressed"]

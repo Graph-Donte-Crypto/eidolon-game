@@ -28,4 +28,5 @@ spawn_limit = 4
 [node name="Enemies" type="Node" parent="."]
 
 [node name="EnemySpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("uid://dtkglyej6axsk")
 spawn_path = NodePath("../Enemies")
