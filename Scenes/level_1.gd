@@ -5,7 +5,7 @@ const SPAWN_RANDOM := 5.0
 
 var enemy_spawn_timer := Timer.new()
 const ENEMY_SPAWN_RATE := 3.0 # Seconds between enemy spawns
-const ENEMY_SPAWN_DISTANCE := 10.0
+const ENEMY_SPAWN_DISTANCE := 100.0
 
 func _ready():
 	# We only need to spawn players on the server.
@@ -48,6 +48,7 @@ func add_player(id: int):
 	character.player = id
 	character.position = Vector2(SPAWN_RANDOM * (randf() - 0.5), SPAWN_RANDOM * (randf() - 0.5))
 	character.name = str(id)
+	character.add_to_group("players")
 	$Players.add_child(character, true)
 
 
