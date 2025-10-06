@@ -10,7 +10,12 @@ config_version=5
 
 [application]
 
-config/name="EidelonGame"
+config/name="EidolonGame"
 run/main_scene="uid://qf8xv65fb2wu"
 config/features=PackedStringArray("4.5", "Forward Plus")
 config/icon="res://icon.svg"
+
+[display]
+
+window/stretch/mode="canvas_items"
+window/stretch/scale=4.0

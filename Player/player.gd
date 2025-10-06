@@ -2,10 +2,6 @@ extends CharacterBody2D
 
 const SPEED = 300.0
 
-
-func _draw() -> void:
-	draw_circle(Vector2.ZERO, 10, Color.RED)
-
 func _physics_process(_delta: float) -> void:
 	var input_vec = Vector2(
 		Input.get_axis("ui_left", "ui_right"),
