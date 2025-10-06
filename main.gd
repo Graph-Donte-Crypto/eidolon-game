@@ -12,6 +12,9 @@ func _ready():
 	if DisplayServer.get_name() == "headless":
 		print("Automatically starting dedicated server.")
 		_on_host_pressed.call_deferred()
+	else:
+		var window = get_window()
+		window.size = Vector2(800, 600)
 
 
 func _on_host_pressed():
