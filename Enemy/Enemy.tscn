@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://dtkglyej6axsk"]
+[gd_scene load_steps=3 format=3 uid="uid://dtkglyej6axsk"]
 
 [ext_resource type="Script" uid="uid://bqph6xrwfxcgx" path="res://Enemy/Enemy.gd" id="1_3o4wt"]
+[ext_resource type="Texture2D" uid="uid://bxlea7bopq7t1" path="res://Assets/Custom/temp_test_slime.png" id="2_epr5s"]
 
 [node name="Enemy" type="CharacterBody2D"]
 script = ExtResource("1_3o4wt")
@@ -8,3 +9,5 @@ script = ExtResource("1_3o4wt")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("2_epr5s")

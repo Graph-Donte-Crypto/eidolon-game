@@ -324,7 +324,7 @@ animations = [{
 "speed": 10.0
 }]
 
-[node name="Pe2" type="CharacterBody2D"]
+[node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_ddoul")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
