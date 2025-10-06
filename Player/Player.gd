@@ -1,6 +1,6 @@
 extends CharacterBody2D
 
-const SPEED = 300.0
+const SPEED = 100.0
 
 # Set by the authority, synchronized on spawn.
 @export var player := 1 :
@@ -28,11 +28,11 @@ func _physics_process(delta):
 	# Handle movement.
 	var direction = input.direction.normalized()
 	if direction:
-		velocity.x = direction.x * SPEED
-		velocity.y = direction.y * SPEED
+		self.velocity = direction * SPEED
 	else:
-		velocity.x = move_toward(velocity.x, 0, SPEED)
-		velocity.y = move_toward(velocity.y, 0, SPEED)
+		self.velocity = self.velocity.move_toward(Vector2.ZERO, SPEED)
+		
+
 
 	if (velocity == Vector2.ZERO):
 		if right:
