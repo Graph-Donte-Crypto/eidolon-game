@@ -27,7 +27,7 @@ func _exit_tree():
 
 
 func add_player(id: int):
-	var character = preload("res://Player/PE2.tscn").instantiate()
+	var character = preload("res://Player/Player.tscn").instantiate()
 	# Set player id.
 	character.player = id
 	character.position = Vector2(SPAWN_RANDOM * (randf() - 0.5), SPAWN_RANDOM * (randf() - 0.5))

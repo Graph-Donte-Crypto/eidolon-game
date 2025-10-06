@@ -13,7 +13,7 @@ config_version=5
 config/name="EidolonGame"
 run/main_scene="uid://qf8xv65fb2wu"
 config/features=PackedStringArray("4.5", "Forward Plus")
-config/icon="res://icon.svg"
+config/icon="res://Assets/Custom/icon.svg"
 
 [display]
 
