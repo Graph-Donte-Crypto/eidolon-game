@@ -7,11 +7,14 @@ var enemy_spawn_timer := Timer.new()
 const ENEMY_SPAWN_RATE := 3.0 # Seconds between enemy spawns
 const ENEMY_SPAWN_DISTANCE := 100.0
 
+var is_server = false
+
 func _ready():
 	# We only need to spawn players on the server.
 	if not multiplayer.is_server():
 		return
-
+	is_server = true
+	
 	multiplayer.peer_connected.connect(add_player)
 	multiplayer.peer_disconnected.connect(del_player)
 
@@ -33,7 +36,7 @@ func _ready():
 
 
 func _exit_tree():
-	if not multiplayer.is_server():
+	if not is_server:
 		return
 	multiplayer.peer_connected.disconnect(add_player)
 	multiplayer.peer_disconnected.disconnect(del_player)

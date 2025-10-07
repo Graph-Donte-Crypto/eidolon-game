@@ -3,7 +3,7 @@ extends CharacterBody2D
 var speed: float = 50.0
 var hp: int = 50
 
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	var players := get_tree().get_nodes_in_group("players")
 	if players.is_empty():
 		return

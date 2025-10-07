@@ -8,6 +8,7 @@
 script = ExtResource("1_joc8x")
 
 [node name="BackgroundSprite" type="Sprite2D" parent="."]
+z_index = -100
 texture_filter = 1
 texture_repeat = 2
 texture = ExtResource("2_joc8x")

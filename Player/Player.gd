@@ -23,7 +23,7 @@ func _ready():
 	# EDIT: Let the client simulate player movement too to compesate network input latency.
 	# set_physics_process(multiplayer.is_server())
 
-func _physics_process(delta):
+func _physics_process(_delta):
 
 	# Handle movement.
 	var direction = input.direction.normalized()

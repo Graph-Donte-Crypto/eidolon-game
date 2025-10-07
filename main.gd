@@ -2,6 +2,15 @@ extends Node
 
 const PORT = 4433
 
+enum GameType {None, Client, Server}
+
+var type: GameType = GameType.None:
+	set(new_type):
+		type = new_type
+		game_type_changed.emit(type)
+
+signal game_type_changed(new_type: GameType)
+
 func _ready():
 	# Start paused.
 	# get_tree().paused = true
@@ -25,12 +34,13 @@ func _on_host_pressed():
 		OS.alert("Failed to start multiplayer server.")
 		return
 	multiplayer.multiplayer_peer = peer
+	type = GameType.Server
 	start_game()
 
 
 func _on_connect_pressed():
 	# Start as client.
-	var txt : String = $UI/MenuPlay/MenuConnect/Options/Remote.text
+	var txt : String = $UI/StartGame/Connect/Options/Remote.text
 	if txt == "":
 		OS.alert("Need a remote to connect to.")
 		return
@@ -40,35 +50,43 @@ func _on_connect_pressed():
 		OS.alert("Failed to start multiplayer client.")
 		return
 	multiplayer.multiplayer_peer = peer
+	multiplayer.server_disconnected.connect(on_disconnection)
+	type = GameType.Client
 	start_game()
 
+func on_disconnection():
+	type = GameType.None
+	$UI/Main.show()
+	$UI/InGame.hide()
+	var peer = multiplayer.multiplayer_peer;
+	multiplayer.multiplayer_peer = OfflineMultiplayerPeer.new()
+	peer.close()
+	multiplayer.server_disconnected.disconnect(on_disconnection)
 
 func start_game():
 	# Hide the UI and unpause to start the game.
-	$UI/MenuPlay.hide()
+	$UI/StartGame.hide()
 	if multiplayer.is_server():
 		change_level(load("res://Scenes/Level1.tscn")) #call_deferred
 	
-# Call this function deferred and only on the main authority (server).
-func change_level(scene: PackedScene):
-	# Remove old level if any.
+func clear_current_level():
 	var level = $Level
 	for c in level.get_children():
 		level.remove_child(c)
 		c.queue_free()
+	
+# Call this function deferred and only on the main authority (server).
+func change_level(scene: PackedScene):
+	# Remove old level if any.
+	clear_current_level()
 	# Add new level.
-	level.add_child(scene.instantiate())
+	$Level.add_child(scene.instantiate())
 
 # The server can restart the level by pressing Home.
 func _input(event):
-	"""
 	if event.is_action("ui_cancel") and Input.is_action_just_pressed("ui_cancel"):
-		var mig = $UI/MenuInGame
-		if not mig.visible:
-			mig.show()
-		else:
-			mig.hide()
-	"""
+		var mig = $UI/InGame
+		mig.visible = not mig.visible
 	
 	if not multiplayer.is_server():
 		return
@@ -77,8 +95,8 @@ func _input(event):
 
 
 func _on_button_play_pressed() -> void:
-	$UI/MenuMain.hide()
-	$UI/MenuPlay.show()
+	$UI/Main.hide()
+	$UI/StartGame.show()
 
 
 func _on_button_exit_pressed() -> void:
@@ -86,5 +104,34 @@ func _on_button_exit_pressed() -> void:
 
 
 func _on_button_back_pressed() -> void:
-	$UI/MenuPlay.hide()
-	$UI/MenuMain.show()
+	$UI/StartGame.hide()
+	$UI/Main.show()
+
+
+func _on_button_close_pressed() -> void:
+	$UI/InGame.hide()
+
+func _on_game_type_changed(new_type: GameType) -> void:
+	match new_type:
+		GameType.None:
+			pass
+		GameType.Client:
+			$UI/InGame/Control/Info/Client.show()
+			$UI/InGame/Control/Info/Server.hide()
+		GameType.Server:
+			$UI/InGame/Control/Info/Client.hide()
+			$UI/InGame/Control/Info/Server.show()
+			
+
+
+func _on_button_stop_server_pressed() -> void:
+	if not multiplayer.is_server():
+		return
+	# multiplayer.multiplayer_peer.close()
+	clear_current_level()
+	$UI/InGame.hide()
+	$UI/Main.show()
+	var peer = multiplayer.multiplayer_peer;
+	multiplayer.multiplayer_peer = OfflineMultiplayerPeer.new()
+	peer.close()
+	type = GameType.None
