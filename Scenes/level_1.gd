@@ -4,8 +4,8 @@ const SPAWN_RANDOM := 5.0
 
 
 var enemy_spawn_timer := Timer.new()
-const ENEMY_SPAWN_RATE := 3.0 # Seconds between enemy spawns
-const ENEMY_SPAWN_DISTANCE := 100.0
+const ENEMY_SPAWN_RATE := .5 # Seconds between enemy spawns
+const ENEMY_SPAWN_DISTANCE := 150.0
 
 var is_server = false
 
