@@ -68,13 +68,13 @@ func start_game():
 	$UI/StartGame.hide()
 	if multiplayer.is_server():
 		change_level(load("res://Scenes/Level1.tscn")) #call_deferred
-	
+
 func clear_current_level():
 	var level = $Level
 	for c in level.get_children():
 		level.remove_child(c)
 		c.queue_free()
-	
+
 # Call this function deferred and only on the main authority (server).
 func change_level(scene: PackedScene):
 	# Remove old level if any.
@@ -87,7 +87,7 @@ func _input(event):
 	if event.is_action("ui_cancel") and Input.is_action_just_pressed("ui_cancel"):
 		var mig = $UI/InGame
 		mig.visible = not mig.visible
-	
+
 	if not multiplayer.is_server():
 		return
 	if event.is_action("ui_home") and Input.is_action_just_pressed("ui_home"):
@@ -121,7 +121,7 @@ func _on_game_type_changed(new_type: GameType) -> void:
 		GameType.Server:
 			$UI/InGame/Control/Info/Client.hide()
 			$UI/InGame/Control/Info/Server.show()
-			
+
 
 
 func _on_button_stop_server_pressed() -> void:

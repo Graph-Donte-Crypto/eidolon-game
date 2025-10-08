@@ -2,6 +2,7 @@ extends Node
 
 const SPAWN_RANDOM := 5.0
 
+signal current_player_appears(player: Player)
 
 var enemy_spawn_timer := Timer.new()
 const ENEMY_SPAWN_RATE := .5 # Seconds between enemy spawns
@@ -14,7 +15,8 @@ func _ready():
 	if not multiplayer.is_server():
 		return
 	is_server = true
-	
+
+
 	multiplayer.peer_connected.connect(add_player)
 	multiplayer.peer_disconnected.connect(del_player)
 
@@ -91,3 +93,22 @@ func spawn_enemy_near_player():
 	# 4. Use the MultiplayerSpawner to spawn the enemy for all clients
 	# Assuming $EnemySpawner is your MultiplayerSpawner
 	$Enemies.add_child(enemy, true)
+
+
+func _on_players_child_entered_tree(node: Node) -> void:
+	if node is not Player:
+		return
+
+	var player: Player = node
+	if not player.is_current():
+		return
+
+	current_player_appears.emit(player)
+
+
+func _on_hp_plus_button_pressed() -> void:
+	$UI/HPBar.value += 10
+
+
+func _on_hp_minus_button_pressed() -> void:
+	$UI/HPBar.value -= 10

@@ -27,10 +27,10 @@ func _physics_process(_delta: float) -> void:
 
 	var direction: Vector2 = (nearest.global_position - global_position).normalized()
 	velocity = direction * speed
-	
+
 	if velocity.x != 0:
 		right = velocity.x > 0
-	
+
 	move_and_slide()
 
 func _on_body_entered(body: Node) -> void:

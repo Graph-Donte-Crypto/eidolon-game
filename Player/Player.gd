@@ -1,5 +1,7 @@
 extends CharacterBody2D
 
+class_name Player
+
 const SPEED = 100.0
 
 # Set by the authority, synchronized on spawn.
@@ -14,6 +16,9 @@ const SPEED = 100.0
 @onready var animation = $AnimatedSprite2D
 
 var right = true
+
+func is_current():
+	return player == multiplayer.get_unique_id()
 
 func _ready():
 	# Set the camera as current if we are this player.
@@ -31,7 +36,7 @@ func _physics_process(_delta):
 		self.velocity = direction * SPEED
 	else:
 		self.velocity = self.velocity.move_toward(Vector2.ZERO, SPEED)
-		
+
 
 
 	if (velocity == Vector2.ZERO):
@@ -44,7 +49,7 @@ func _physics_process(_delta):
 			right = true
 		elif velocity.x < 0:
 			right = false
-			
+
 		if right:
 			animation.play("walk_right")
 		else:

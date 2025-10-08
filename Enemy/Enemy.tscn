@@ -101,4 +101,4 @@ replication_config = SubResource("SceneReplicationConfig_epr5s")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_yqk80")
 animation = &"walk_left"
-frame_progress = 0.75997037
+frame_progress = 0.17912596
