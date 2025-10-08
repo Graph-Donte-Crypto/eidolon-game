@@ -24,10 +24,12 @@ func _process(_delta):
 		var dir = self.velocity.normalized()
 		if dir == Vector2.ZERO:
 			dir = last_direction
-		spawn_projectile_on_all_peers.rpc_id(1, self.global_position, dir)
+		spawn_projectile_server.rpc_id(1, self.global_position, dir)
 
-@rpc("call_local", "any_peer")
-func spawn_projectile_on_all_peers(position: Vector2, direction: Vector2):
+@rpc("any_peer", "call_local", "unreliable") 
+func spawn_projectile_server(position: Vector2, direction: Vector2):
+	if not multiplayer.is_server():
+		return
 	var spell = SpellScene.instantiate()
 	spell.global_position = position
 	spell.direction = direction

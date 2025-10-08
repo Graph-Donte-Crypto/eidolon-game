@@ -7,14 +7,20 @@ extends Area2D
 @export var lifetime: float = 1.0
 
 func _physics_process(delta: float) -> void:
+	if not multiplayer.is_server():
+		return
 	position += direction.normalized() * speed * delta
 
 func _on_body_entered(body: Node) -> void:
+	if not multiplayer.is_server():
+		return
 	if body.is_in_group("enemies"):
 		if not piercing:
 			queue_free()
 
 func _process(delta: float) -> void:
+	if not multiplayer.is_server():
+		return
 	lifetime -= delta
 	if lifetime <= 0.0:
 		queue_free()
