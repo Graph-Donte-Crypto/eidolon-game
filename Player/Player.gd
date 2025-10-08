@@ -1,5 +1,7 @@
 extends CharacterBody2D
 
+class_name Player
+
 const SPEED = 100.0
 
 # Set by the authority, synchronized on spawn.
@@ -31,6 +33,9 @@ func spawn_projectile_on_all_peers(position: Vector2, direction: Vector2):
 	spell.direction = direction
 	get_node(^"../../SpellInstances").add_child(spell, true)
 
+func is_current():
+	return player == multiplayer.get_unique_id()
+
 func _ready():
 	# Set the camera as current if we are this player.
 	if player == multiplayer.get_unique_id():
@@ -47,7 +52,7 @@ func _physics_process(_delta):
 		self.velocity = direction * SPEED
 	else:
 		self.velocity = self.velocity.move_toward(Vector2.ZERO, SPEED)
-		
+
 
 
 	if (self.velocity == Vector2.ZERO):
@@ -61,7 +66,7 @@ func _physics_process(_delta):
 			right = true
 		elif velocity.x < 0:
 			right = false
-			
+
 		if right:
 			animation.play("walk_right")
 		else:

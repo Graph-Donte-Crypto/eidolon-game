@@ -8,5 +8,5 @@
 Дерево сцены:
 - PascalCase
 Файлы:
-- По умолчанию scake_case
+- По умолчанию snake_case
 - Исключения: CONSTANT_CASE
