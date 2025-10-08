@@ -14,6 +14,22 @@ const SPEED = 100.0
 @onready var animation = $AnimatedSprite2D
 
 var right = true
+var last_direction = Vector2.RIGHT;
+
+var SpellScene = preload("res://spell_instance/spell_instance.tscn")
+func _process(_delta):
+	if input.cast_spell:
+		var dir = self.velocity.normalized()
+		if dir == Vector2.ZERO:
+			dir = last_direction
+		spawn_projectile_on_all_peers.rpc_id(1, self.global_position, dir)
+
+@rpc("call_local", "any_peer")
+func spawn_projectile_on_all_peers(position: Vector2, direction: Vector2):
+	var spell = SpellScene.instantiate()
+	spell.global_position = position
+	spell.direction = direction
+	get_node(^"../../SpellInstances").add_child(spell, true)
 
 func _ready():
 	# Set the camera as current if we are this player.
@@ -34,12 +50,13 @@ func _physics_process(_delta):
 		
 
 
-	if (velocity == Vector2.ZERO):
+	if (self.velocity == Vector2.ZERO):
 		if right:
 			animation.play("idle_right")
 		else:
 			animation.play("idle_left")
 	else:
+		last_direction = self.velocity
 		if velocity.x > 0:
 			right = true
 		elif velocity.x < 0:

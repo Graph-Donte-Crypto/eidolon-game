@@ -31,3 +31,9 @@ spawn_limit = 4
 [node name="EnemySpawner" type="MultiplayerSpawner" parent="."]
 _spawnable_scenes = PackedStringArray("uid://dtkglyej6axsk")
 spawn_path = NodePath("../Enemies")
+
+[node name="SpellInstances" type="Node" parent="."]
+
+[node name="SpellInstanceSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("uid://5t8omdvsgdvi")
+spawn_path = NodePath("../SpellInstances")
